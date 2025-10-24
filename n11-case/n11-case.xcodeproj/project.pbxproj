@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		955EA5B72EAB930D00539A5D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 955EA5B62EAB930D00539A5D /* Kingfisher */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		9519C54D2EAB79C200913CD8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				955EA5B72EAB930D00539A5D /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +130,7 @@
 			);
 			name = "n11-case";
 			packageProductDependencies = (
+				955EA5B62EAB930D00539A5D /* Kingfisher */,
 			);
 			productName = "n11-case";
 			productReference = 9519C5362EAB79C100913CD8 /* n11-case.app */;
@@ -208,6 +214,9 @@
 			);
 			mainGroup = 9519C52D2EAB79C100913CD8;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				955EA5B52EAB930D00539A5D /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9519C5372EAB79C100913CD8 /* Products */;
 			projectDirPath = "";
@@ -561,6 +570,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		955EA5B52EAB930D00539A5D /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = exactVersion;
+				version = 8.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		955EA5B62EAB930D00539A5D /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 955EA5B52EAB930D00539A5D /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9519C52E2EAB79C100913CD8 /* Project object */;
 }

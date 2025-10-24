@@ -9,7 +9,7 @@ import Foundation
 
 struct AppEnvironment {
     
-    let baseUrl: String = "66b764777f7b1c6d8f1bc48b.mockapi.io"
-    let scheme: String = "https"
+    let baseUrl: String = "private-d3ae2-n11case.apiary-mock.com"
+    let scheme: String = "http"
     
 }

@@ -24,20 +24,3 @@ struct Request {
     }
     
 }
-
-extension Result where Success == Data, Failure == APIError {
-    func decoding<M: Model>(_ model: M.Type) async -> Result<M, APIError> {
-        let result = flatMap { data -> Result<M, APIError> in
-            do {
-                let decoder = M.decoder
-                let model = try decoder.decode(M.self, from: data)
-                return .success(model)
-            } catch let e as DecodingError {
-                return .failure(.decodingError(e))
-            } catch {
-                return .failure(APIError.unhandledResponse)
-            }
-        }
-        return result
-    }
-}

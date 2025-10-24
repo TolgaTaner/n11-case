@@ -1,15 +1,9 @@
-//
-//  HomeDataSource.swift
-//  n11-home
-//
-//  Created by Tolga Taner on 22.10.2025.
-//
-
 import Foundation
 
-struct ProductListResponse<T: Model>: Model {
+struct ProductListResponse: Decodable {
     let page, nextPage, publishedAt: String
-    let sponsoredProducts, products: [T]
+    let sponsoredProducts: [SponsoredProduct]
+    let products: [Product]
 
     enum CodingKeys: String, CodingKey {
         case page, nextPage
@@ -18,11 +12,23 @@ struct ProductListResponse<T: Model>: Model {
     }
 }
 
-// MARK: - Product
-struct Product: Model {
+// MARK: - Sponsored Product
+struct SponsoredProduct: Decodable {
     let id: Int
-    let title, image: String
+    let title: String
+    let image: String
     let price: Double
-    let instantDiscountPrice, rate: Double?
+    let instantDiscountPrice: Double?
+    let rate: Double?
+}
+
+// MARK: - Product
+struct Product: Decodable {
+    let id: Int
+    let title: String
+    let image: String
+    let price: Double
+    let instantDiscountPrice: Double?
+    let rate: Double?
     let sellerName: String?
 }
