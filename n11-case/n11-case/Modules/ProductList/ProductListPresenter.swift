@@ -18,7 +18,10 @@ final class ProductListPresenter {
         sponsoredProductList.count * 3
     }
     var productList: [Product]
-    var currentProductPage: String
+    var currentProductPage: Int
+    var nextProductPage: Int?
+    var sponsporedTableViewContentOffset: CGPoint
+    var sectionList: [ProductListSection]
     
     init(view: ProductListPresenterToViewProtocol,
          interactor: ProductListPresenterToInteractorProtocol,
@@ -28,16 +31,31 @@ final class ProductListPresenter {
         self.router = router
         sponsoredProductList = []
         productList = []
-        currentProductPage = "1"
+        currentProductPage = 1
+        sponsporedTableViewContentOffset = .zero
+        nextProductPage = currentProductPage
+        sectionList = [.sponsored, .listing]
     }
 }
 
 
 //MARK: - ProductListInteractorToPresenterProtocol
 extension ProductListPresenter: ProductListInteractorToPresenterProtocol {
-    func productDidFetchedSuccessfully(_ sponsoredProductList: [SponsoredProduct], _ productList: [Product]) {
-        self.productList = productList
-        self.sponsoredProductList = sponsoredProductList
+    func productDidFetchedSuccessfully(_ sponsoredProductList: [SponsoredProduct]?, _ productList: [Product], _ currentPage: String, _ nextPage: String?) {
+        if let currentPageInt = Int(currentPage) {
+            currentProductPage = currentPageInt
+        }
+        if let nextPage = nextPage,
+           let nextPageInt = Int(nextPage) {
+            nextProductPage = nextPageInt
+        }
+        else {
+            nextProductPage = nil
+        }
+        self.productList.append(contentsOf: productList)
+        if let sponsoredProductList {
+            self.sponsoredProductList = sponsoredProductList
+        }
         DispatchQueue.main.async {
             self.view?.showProductLists()
         }
@@ -52,25 +70,15 @@ extension ProductListPresenter: ProductListInteractorToPresenterProtocol {
 
 //MARK: - ProductListViewToPresenterProtocol
 extension ProductListPresenter: ProductListViewToPresenterProtocol {
-    func prepareInfinityScroll(fromPageWidth width: CGFloat, contentOffSetX: CGFloat) {
-        let totalItems = sponsoredProductList.count
-        let currentIndex = Int(contentOffSetX / width)
-        if currentIndex < totalItems {
-            let newOffset = CGPoint(x: contentOffSetX + CGFloat(totalItems) * width, y: 0)
-            view?.setInfinityScroll(toPoint: newOffset)
-        } else if currentIndex >= totalItems * 2 {
-            let newOffset = CGPoint(x: contentOffSetX - CGFloat(totalItems) * width, y: 0)
-            view?.setInfinityScroll(toPoint: newOffset)
-        }
-    }
     
-    func findPageControlItemIndex(fromPageWidth width: CGFloat, contentOffSetX: CGFloat) {
-        let currentPage = Int(contentOffSetX / width) % sponsoredProductList.count
-        view?.setPageControlPageNumber(currentPage)
+    func loadMoreProducts() {
+        guard (nextProductPage != nil) else { return }
+        currentProductPage += 1
+        interactor?.getProductList(pageNumber: String(currentProductPage))
     }
     
     func getProductList() {
-        interactor?.getProductList(pageNumber: currentProductPage)
+        interactor?.getProductList(pageNumber: String(currentProductPage))
     }
     
     func viewDidLoad() {

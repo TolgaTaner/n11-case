@@ -20,9 +20,12 @@ final class PriceCalculator {
         return formatter
     }()
     
-    func calculateDiscountPercentage(originalPrice: Double, discountedPrice: Double) -> String {
-        guard originalPrice > 0 else { return "" }
+    func calculateDiscountPercentage(originalPrice: Double, discountedPrice: Double) -> String? {
+        guard originalPrice > 0 else { return nil }
         let discount = (originalPrice - discountedPrice) / originalPrice * 100
+        if Int(round(discount)) == 0 {
+            return nil
+        }
         return "%\(Int(round(discount)))"
     }
     

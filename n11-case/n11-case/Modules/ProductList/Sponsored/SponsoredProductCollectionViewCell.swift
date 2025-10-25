@@ -42,7 +42,7 @@ final class SponsoredProductCollectionViewCell: UICollectionViewCell {
         return discountPriceView
     }()
     
-    private let ratingView: RatingView = {
+    private lazy var ratingView: RatingView = {
         let view = RatingView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isHidden = true
@@ -52,7 +52,6 @@ final class SponsoredProductCollectionViewCell: UICollectionViewCell {
     }()
     
     // MARK: - Init
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()

@@ -17,16 +17,13 @@ protocol ProductListViewToPresenterProtocol: AnyObject {
     var router: ProductListPresenterToRouterProtocol? { get set }
     var sponsoredProductList: [SponsoredProduct] { get set }
     var productList: [Product] { get set }
-    var currentProductPage: String { get set }
-    var infinitySponsoredProductListItemCount: Int { get }
-    
+    var currentProductPage: Int { get set }
+    var nextProductPage: Int? { get set }
+    var sectionList: [ProductListSection] { get set }
     func getProductList()
     func viewDidLoad()
     func viewWillAppear()
-    func viewDidLayoutSubviews()
-    
-    func findPageControlItemIndex(fromPageWidth width: CGFloat, contentOffSetX: CGFloat)
-    func prepareInfinityScroll(fromPageWidth width: CGFloat, contentOffSetX: CGFloat)
+    func loadMoreProducts()
     
 }
 
@@ -35,9 +32,7 @@ protocol ProductListPresenterToViewProtocol: AnyObject {
     func configureAfterViewDidLoad()
     func configureAfterViewWillAppear()
     func showProductLists()
-    func setPageControlPageNumber(_ number: Int)
     func showProductListError(errorMessage: String)
-    func setInfinityScroll(toPoint point: CGPoint)
 }
 
 //MARK: - ProductListPresenterToRouterProtocol
@@ -56,6 +51,6 @@ protocol ProductListPresenterToInteractorProtocol: AnyObject {
 
 //MARK: - ProductListInteractorToPresenterProtocol
 protocol ProductListInteractorToPresenterProtocol: AnyObject {
-      func productDidFetchedSuccessfully(_ sponsoredProductList: [SponsoredProduct], _ productList: [Product])
-      func productDidFetchedWithFail(_ error: APIError)
+    func productDidFetchedSuccessfully(_ sponsoredProductList: [SponsoredProduct]?, _ productList: [Product], _ currentPage: String, _ nextPage: String?)
+    func productDidFetchedWithFail(_ error: APIError)
 }

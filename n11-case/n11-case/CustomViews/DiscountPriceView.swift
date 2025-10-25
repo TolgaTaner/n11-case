@@ -11,9 +11,9 @@ final class DiscountPriceView: UIView {
     
     private lazy var discountView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemRed
         view.layer.cornerRadius = 4
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -51,6 +51,15 @@ final class DiscountPriceView: UIView {
         return stack
     }()
     
+    private lazy var horizontalStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [discountView, priceStackView])
+        stack.axis = .horizontal
+        stack.spacing = 8
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
     private let calculator: PriceCalculator = PriceCalculator()
     
     override init(frame: CGRect) {
@@ -64,9 +73,8 @@ final class DiscountPriceView: UIView {
     }
     
     private func setupViews() {
-        addSubview(discountView)
         discountView.addSubview(discountLabel)
-        addSubview(priceStackView)
+        addSubview(horizontalStackView)
     }
     
     private func setupConstraints() {
@@ -76,33 +84,33 @@ final class DiscountPriceView: UIView {
             discountLabel.leadingAnchor.constraint(equalTo: discountView.leadingAnchor, constant: 6),
             discountLabel.trailingAnchor.constraint(equalTo: discountView.trailingAnchor, constant: -6),
             
-            discountView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            discountView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
-            priceStackView.leadingAnchor.constraint(equalTo: discountView.trailingAnchor, constant: 8),
-            priceStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            priceStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            horizontalStackView.topAnchor.constraint(equalTo: topAnchor),
+            horizontalStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            horizontalStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            horizontalStackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor)
         ])
     }
     
     func configure(originalPrice: Double, discountedPrice: Double?) {
-        if let discountedPrice {
+        if let discountedPrice,
+           let discount = calculator.calculateDiscountPercentage(originalPrice: originalPrice, discountedPrice: discountedPrice) {
             discountView.isHidden = false
             newPriceLabel.isHidden = false
-            
-            let discount = calculator.calculateDiscountPercentage(originalPrice: originalPrice, discountedPrice: discountedPrice)
             discountLabel.text = discount
-            
             oldPriceLabel.attributedText = NSAttributedString(
                 string: calculator.getPrice(from: originalPrice),
                 attributes: [.strikethroughStyle: NSUnderlineStyle.single.rawValue]
             )
             newPriceLabel.text = calculator.getPrice(from: discountedPrice)
+            oldPriceLabel.font = .systemFont(ofSize: 12)
+            oldPriceLabel.textColor = .gray
         } else {
             discountView.isHidden = true
             newPriceLabel.isHidden = true
             oldPriceLabel.attributedText = nil
             oldPriceLabel.text = calculator.getPrice(from: originalPrice)
+            oldPriceLabel.textColor = .black
+            oldPriceLabel.font = .boldSystemFont(ofSize: 16)
         }
     }
 }

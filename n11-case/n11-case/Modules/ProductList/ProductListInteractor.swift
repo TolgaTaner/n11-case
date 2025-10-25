@@ -25,7 +25,7 @@ extension ProductListInteractor: ProductListPresenterToInteractorProtocol {
             let result = await productListClient.get(path: "/listing/\(pageNumber)", queryItems: nil)
             switch result {
             case .success(let response):
-                presenter?.productDidFetchedSuccessfully(response.sponsoredProducts, response.products)
+                presenter?.productDidFetchedSuccessfully(response.sponsoredProducts, response.products, response.page, response.nextPage)
             case .failure(let failure):
                 presenter?.productDidFetchedWithFail(failure)
             }

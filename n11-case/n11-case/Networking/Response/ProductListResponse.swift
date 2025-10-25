@@ -1,8 +1,9 @@
 import Foundation
 
 struct ProductListResponse: Decodable {
-    let page, nextPage, publishedAt: String
-    let sponsoredProducts: [SponsoredProduct]
+    let page, publishedAt: String
+    let nextPage: String?
+    let sponsoredProducts: [SponsoredProduct]?
     let products: [Product]
 
     enum CodingKeys: String, CodingKey {
