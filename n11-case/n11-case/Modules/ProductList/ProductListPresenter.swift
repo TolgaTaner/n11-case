@@ -14,13 +14,9 @@ final class ProductListPresenter {
     var interactor: ProductListPresenterToInteractorProtocol?
     var router: ProductListPresenterToRouterProtocol?
     var sponsoredProductList: [SponsoredProduct]
-    var infinitySponsoredProductListItemCount: Int {
-        sponsoredProductList.count * 3
-    }
     var productList: [Product]
     var currentProductPage: Int
     var nextProductPage: Int?
-    var sponsporedTableViewContentOffset: CGPoint
     var sectionList: [ProductListSection]
     
     init(view: ProductListPresenterToViewProtocol,
@@ -32,7 +28,6 @@ final class ProductListPresenter {
         sponsoredProductList = []
         productList = []
         currentProductPage = 1
-        sponsporedTableViewContentOffset = .zero
         nextProductPage = currentProductPage
         sectionList = [.sponsored, .listing]
     }
