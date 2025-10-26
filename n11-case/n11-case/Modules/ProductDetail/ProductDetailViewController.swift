@@ -16,6 +16,7 @@ final class ProductDetailViewController: UIViewController {
         let navigationView: ProductDetailNavigationView = ProductDetailNavigationView()
         navigationView.translatesAutoresizingMaskIntoConstraints = false
         navigationView.backgroundColor = .white
+        navigationView.isHidden = true
         return navigationView
     }()
     
@@ -310,6 +311,8 @@ extension ProductDetailViewController: ProductDetailPresenterToViewProtocol {
     }
     
     func showProduct(_ product: DetailedProduct) {
+        navigationView.isHidden = false
+        seperatorView.isHidden = false
         titleLabel.text = presenter.selectedProduct?.title
         sellerLabel.text = presenter.selectedProduct?.sellerName
         ratingView.isHidden = presenter.product.rate == nil
@@ -319,7 +322,6 @@ extension ProductDetailViewController: ProductDetailPresenterToViewProtocol {
         imageCollectionView.reloadData()
         pageControl.numberOfPages = product.images.count
         rateLabel.text = String(product.rate)
-        seperatorView.isHidden = false
         LoadingIndicatorView.shared.hide()
     }
     
