@@ -19,7 +19,6 @@ protocol ProductListViewToPresenterProtocol: AnyObject {
     var productList: [ListedProduct] { get set }
     var currentProductPage: Int { get set }
     var nextProductPage: Int? { get set }
-    var navigationControllerDelegate: CustomNavigationControllerDelegate { get }
     var sectionList: [ProductListSection] { get set }
     
     func getProductList()

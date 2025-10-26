@@ -18,7 +18,6 @@ final class ProductListPresenter {
     var currentProductPage: Int
     var nextProductPage: Int?
     var sectionList: [ProductListSection]
-    var navigationControllerDelegate: CustomNavigationControllerDelegate
     
     init(view: ProductListPresenterToViewProtocol,
          interactor: ProductListPresenterToInteractorProtocol,
@@ -31,7 +30,6 @@ final class ProductListPresenter {
         currentProductPage = 1
         nextProductPage = currentProductPage
         sectionList = [.sponsored, .listing]
-        navigationControllerDelegate = CustomNavigationControllerDelegate()
     }
 }
 

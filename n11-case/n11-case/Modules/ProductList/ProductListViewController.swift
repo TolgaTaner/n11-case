@@ -119,7 +119,6 @@ extension ProductListViewController: ProductListPresenterToViewProtocol {
     
     func configureAfterViewDidLoad() {
         view.backgroundColor = .white
-        navigationController?.delegate = presenter.navigationControllerDelegate
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         presenter.getProductList()
