@@ -53,15 +53,15 @@ final class SponsoredProductsTableViewSectionCell: UITableViewCell {
     
     private func setupUI() {
         selectionStyle = .none
-        contentView.addSubview(collectionView)
+        contentView.addSubview(collectionView)  
         contentView.addSubview(pageControl)
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             pageControl.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            pageControl.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            pageControl.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 20)
         ])
     }
     
