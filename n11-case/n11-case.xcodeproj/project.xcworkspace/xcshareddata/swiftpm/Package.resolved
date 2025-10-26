@@ -1,5 +1,5 @@
 {
-  "originHash" : "917a2b512148612347b307b5f8d624e74df48af36fa322c80901a86fc0e1317f",
+  "originHash" : "c0b51ffdc22da1421bcbba629eecf6f5e65501b8567b1564e75cd5892ae1a6e0",
   "pins" : [
     {
       "identity" : "kingfisher",
@@ -8,6 +8,24 @@
       "state" : {
         "revision" : "dd3c422ec3088404d6f7e8c905a8318b3de12d6f",
         "version" : "8.6.0"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax.git",
+      "state" : {
+        "revision" : "2bc86522d115234d1f588efe2bcb4ce4be8f8b82",
+        "version" : "510.0.3"
+      }
+    },
+    {
+      "identity" : "swiftandtipsmacros",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pitt500/SwiftAndTipsMacros.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "fb92f9aa8afccb13b960c45d6aa3f4ed1b6bd648"
       }
     }
   ],

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		955EA5B72EAB930D00539A5D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 955EA5B62EAB930D00539A5D /* Kingfisher */; };
+		958A993B2EAE5C6B0050FB31 /* SwiftAndTipsMacros in Frameworks */ = {isa = PBXBuildFile; productRef = 958A993A2EAE5C6B0050FB31 /* SwiftAndTipsMacros */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				955EA5B72EAB930D00539A5D /* Kingfisher in Frameworks */,
+				958A993B2EAE5C6B0050FB31 /* SwiftAndTipsMacros in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +133,7 @@
 			name = "n11-case";
 			packageProductDependencies = (
 				955EA5B62EAB930D00539A5D /* Kingfisher */,
+				958A993A2EAE5C6B0050FB31 /* SwiftAndTipsMacros */,
 			);
 			productName = "n11-case";
 			productReference = 9519C5362EAB79C100913CD8 /* n11-case.app */;
@@ -216,6 +219,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				955EA5B52EAB930D00539A5D /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				958A99392EAE5C6B0050FB31 /* XCRemoteSwiftPackageReference "SwiftAndTipsMacros" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9519C5372EAB79C100913CD8 /* Products */;
@@ -580,6 +584,14 @@
 				version = 8.6.0;
 			};
 		};
+		958A99392EAE5C6B0050FB31 /* XCRemoteSwiftPackageReference "SwiftAndTipsMacros" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pitt500/SwiftAndTipsMacros.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -587,6 +599,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 955EA5B52EAB930D00539A5D /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		958A993A2EAE5C6B0050FB31 /* SwiftAndTipsMacros */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 958A99392EAE5C6B0050FB31 /* XCRemoteSwiftPackageReference "SwiftAndTipsMacros" */;
+			productName = SwiftAndTipsMacros;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

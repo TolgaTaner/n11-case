@@ -1,4 +1,6 @@
 import Foundation
+import SwiftAndTipsMacros
+import DataGenerator
 
 struct ProductListResponse: Decodable {
     let page, publishedAt: String
@@ -22,6 +24,7 @@ protocol Product {
     var instantDiscountPrice: Double? { get }
     var rate: Double? { get }
 }
+
 struct SponsoredProduct: Decodable, Product {
     var id: Int
     var title: String
@@ -29,6 +32,15 @@ struct SponsoredProduct: Decodable, Product {
     var price: Double
     var instantDiscountPrice: Double?
     var rate: Double?
+    
+    
+#if DEBUG
+    static var sample: [Self] {
+        [
+            .init(id: DataGenerator.random().int(), title: DataGenerator.random().string(), image: DataGenerator.random().string(), price: DataGenerator.random().double(), instantDiscountPrice: DataGenerator.random().double(), rate: DataGenerator.random().double()),
+        ]
+    }
+#endif
 }
 
 // MARK: - Product
