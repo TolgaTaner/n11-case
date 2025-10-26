@@ -110,10 +110,12 @@ extension ProductListViewController: ProductListPresenterToViewProtocol {
     func showProductLists() {
         navigationView.isHidden = false
         headerView.isHidden = false
+        LoadingIndicatorView.shared.hide()
         tableView.reloadData()
     }
     
     func showProductListError(errorMessage: String) {
+        LoadingIndicatorView.shared.hide()
         showAlert(title: "N11", message: errorMessage)
     }
     
@@ -121,6 +123,7 @@ extension ProductListViewController: ProductListPresenterToViewProtocol {
         view.backgroundColor = .white
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        LoadingIndicatorView.shared.show()
         presenter.getProductList()
     }
     

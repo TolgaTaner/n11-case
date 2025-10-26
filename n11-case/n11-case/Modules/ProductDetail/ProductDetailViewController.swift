@@ -304,15 +304,18 @@ extension ProductDetailViewController: ProductDetailPresenterToViewProtocol {
         imageCollectionView.reloadData()
         pageControl.numberOfPages = product.images.count
         rateLabel.text = String(product.rate)
+        LoadingIndicatorView.shared.hide()
     }
     
     func showProductListError(errorMessage: String) {
         showAlert(title: "N11", message: errorMessage)
+        LoadingIndicatorView.shared.hide()
     }
     
     func configureAfterViewDidLoad() {
         view.backgroundColor = .white
         navigationView.delegate = self
+        LoadingIndicatorView.shared.show()
         presenter.getProductDetail()
     }
     
