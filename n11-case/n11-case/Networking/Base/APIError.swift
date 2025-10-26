@@ -34,6 +34,10 @@ enum APIError: Error, Equatable {
             return false
         }
     }
+    
+    var localizedDescription: String {
+        return "Bilinmeyen bir hata ile karşılaşıldı."
+    }
 }
 
 extension APIError {
