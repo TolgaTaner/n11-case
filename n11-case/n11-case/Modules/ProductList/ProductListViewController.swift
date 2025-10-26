@@ -42,6 +42,7 @@ final class ProductListViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.isHidden = true
         tableView.register(SponsoredProductsTableViewSectionCell.self, forCellReuseIdentifier: SponsoredProductsTableViewSectionCell.reuseIdentifier)
         tableView.register(ListingProductTableViewSectionCell.self, forCellReuseIdentifier: ListingProductTableViewSectionCell.reuseIdentifier)
         return tableView
@@ -110,6 +111,7 @@ extension ProductListViewController: ProductListPresenterToViewProtocol {
     func showProductLists() {
         navigationView.isHidden = false
         headerView.isHidden = false
+        tableView.isHidden = false
         LoadingIndicatorView.shared.hide()
         tableView.reloadData()
     }
