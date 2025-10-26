@@ -128,9 +128,17 @@ final class ProductDetailViewController: UIViewController {
     private lazy var newPriceLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 22)
-        label.textColor = .black
+        label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    private lazy var seperatorView: UIView = {
+        let view: UIView = UIView()
+        view.backgroundColor = .separator
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        return view
     }()
     
     override func viewDidLoad() {
@@ -159,6 +167,8 @@ final class ProductDetailViewController: UIViewController {
         scrollViewContentView.addSubview(ratingView)
         scrollViewContentView.addSubview(rateLabel)
         scrollViewContentView.addSubview(priceStackView)
+        scrollViewContentView.addSubview(seperatorView)
+        
         NSLayoutConstraint.activate([
             
             imageCollectionView.topAnchor.constraint(equalTo: scrollViewContentView.topAnchor, constant: 10),
@@ -184,11 +194,16 @@ final class ProductDetailViewController: UIViewController {
             rateLabel.centerYAnchor.constraint(equalTo: ratingView.centerYAnchor),
             rateLabel.leadingAnchor.constraint(equalTo: ratingView.trailingAnchor, constant: 4),
             
-            priceStackView.topAnchor.constraint(equalTo: ratingView.bottomAnchor, constant: 18),
+            seperatorView.leadingAnchor.constraint(equalTo: scrollViewContentView.leadingAnchor),
+            seperatorView.trailingAnchor.constraint(equalTo: scrollViewContentView.trailingAnchor),
+            seperatorView.topAnchor.constraint(equalTo: ratingView.bottomAnchor, constant: 5),
+            seperatorView.heightAnchor.constraint(equalToConstant: 5),
+            
+            priceStackView.topAnchor.constraint(equalTo: seperatorView.bottomAnchor, constant: 5),
             priceStackView.leadingAnchor.constraint(equalTo: scrollViewContentView.leadingAnchor, constant: 16),
-                   
-                
-            priceStackView.bottomAnchor.constraint(equalTo: scrollViewContentView.bottomAnchor, constant: -20)
+            priceStackView.bottomAnchor.constraint(equalTo: scrollViewContentView.bottomAnchor, constant: -20),
+            
+            
             
         ])
         scrollViewContentView.bringSubviewToFront(pageControl)
@@ -304,6 +319,7 @@ extension ProductDetailViewController: ProductDetailPresenterToViewProtocol {
         imageCollectionView.reloadData()
         pageControl.numberOfPages = product.images.count
         rateLabel.text = String(product.rate)
+        seperatorView.isHidden = false
         LoadingIndicatorView.shared.hide()
     }
     
