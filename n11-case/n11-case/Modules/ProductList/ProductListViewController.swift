@@ -105,6 +105,7 @@ final class ProductListViewController: UIViewController {
         ])
     }
 }
+extension ProductListViewController: UITestable {}
 //MARK: - ProductListPresenterToViewProtocol
 extension ProductListViewController: ProductListPresenterToViewProtocol {
     
@@ -125,6 +126,10 @@ extension ProductListViewController: ProductListPresenterToViewProtocol {
         view.backgroundColor = .white
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        setAccessibilityIdentifier(toView: tableView, forKey: .productListTableView)
+        setAccessibilityIdentifier(toView: contentView, forKey: .productListContentView)
+        setAccessibilityIdentifier(toView: headerView, forKey: .productListHeaderView)
+        setAccessibilityIdentifier(toView: navigationView, forKey: .productListNavigationView)
         LoadingIndicatorView.shared.show()
         presenter.getProductList()
     }
