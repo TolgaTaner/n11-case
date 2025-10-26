@@ -50,10 +50,10 @@ final class ListingProductTableViewSectionCell: UITableViewCell {
         contentView.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         
         let heightConstraint = collectionView.heightAnchor.constraint(equalToConstant: 0)
