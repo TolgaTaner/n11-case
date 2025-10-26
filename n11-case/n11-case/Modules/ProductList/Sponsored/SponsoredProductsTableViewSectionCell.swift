@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol SponsoredProductsTableViewSectionCellDelegate: AnyObject {
+    func didSelect(_ product: Product)
+}
+
 final class SponsoredProductsTableViewSectionCell: UITableViewCell {
     static let reuseIdentifier = "SponsoredProductsTableViewCell"
     
@@ -28,10 +32,12 @@ final class SponsoredProductsTableViewSectionCell: UITableViewCell {
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.pageIndicatorTintColor = .separator
         pageControl.currentPageIndicatorTintColor = .systemRed
+        pageControl.isUserInteractionEnabled = false
         return pageControl
     }()
     
     var presenter: SponsoredProductsTableViewSectionCellViewToPresenterProtocol!
+    weak var delegate: SponsoredProductsTableViewSectionCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -59,10 +65,11 @@ final class SponsoredProductsTableViewSectionCell: UITableViewCell {
         ])
     }
     
-    func configure(sponsoredProductList: [SponsoredProduct]) {
+    func configure(sponsoredProductList: [SponsoredProduct], delegate: SponsoredProductsTableViewSectionCellDelegate) {
         self.presenter = SponsoredProductsTableViewSectionCellPresenter(view: self, sponsoredProductList: sponsoredProductList)
         pageControl.numberOfPages = presenter.sponsoredProductList.count
         collectionView.dataSource = self
+        self.delegate = delegate
         collectionView.delegate = self
         collectionView.reloadData()
     }
@@ -118,5 +125,11 @@ extension SponsoredProductsTableViewSectionCell: UICollectionViewDelegateFlowLay
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         presenter.sponsporedTableViewContentOffset = scrollView.contentOffset
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let realIndex = indexPath.item % presenter.sponsoredProductList.count
+        let product = presenter.sponsoredProductList[realIndex]
+        delegate?.didSelect(product)
     }
 }

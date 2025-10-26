@@ -24,4 +24,9 @@ final class ProductListRouter: ProductListPresenterToRouterProtocol {
         return navigationController
     }
     
+    func routeProductDetail(_ product: Product) {
+        let productDetailModule = ProductDetailRouter.createModule(product: product)
+        viewController?.navigationController?.pushViewController(productDetailModule, animated: true)
+    }
+    
 }

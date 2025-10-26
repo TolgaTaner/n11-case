@@ -103,7 +103,6 @@ final class ProductListViewController: UIViewController {
             navigationView.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
-    
 }
 //MARK: - ProductListPresenterToViewProtocol
 extension ProductListViewController: ProductListPresenterToViewProtocol {
@@ -120,6 +119,9 @@ extension ProductListViewController: ProductListPresenterToViewProtocol {
     
     func configureAfterViewDidLoad() {
         view.backgroundColor = .white
+        navigationController?.delegate = presenter.navigationControllerDelegate
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         presenter.getProductList()
     }
     
@@ -127,6 +129,12 @@ extension ProductListViewController: ProductListPresenterToViewProtocol {
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
+}
+//MARK: - UIGestureRecognizerDelegate
+extension ProductListViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        navigationController?.viewControllers.count ?? 0 > 1
+    }
 }
 //MARK: - UITableViewDelegate, UITableViewDataSource
 extension ProductListViewController: UITableViewDataSource, UITableViewDelegate {
@@ -168,7 +176,7 @@ extension ProductListViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if presenter.sectionList[indexPath.section] == .sponsored {
             let cell = tableView.dequeueReusableCell(withIdentifier: SponsoredProductsTableViewSectionCell.reuseIdentifier, for: indexPath) as! SponsoredProductsTableViewSectionCell
-            cell.configure(sponsoredProductList: presenter.sponsoredProductList)
+            cell.configure(sponsoredProductList: presenter.sponsoredProductList, delegate: self)
             return cell
         }
         else if presenter.sectionList[indexPath.section] == .listing {
@@ -182,10 +190,19 @@ extension ProductListViewController: UITableViewDataSource, UITableViewDelegate 
 //MARK: - Alertable
 extension ProductListViewController: Alertable {}
 
+//MARK: - ListingProductTableViewSectionCellDelegate
 extension ProductListViewController: ListingProductTableViewSectionCellDelegate {
+    func didSelect(_ product: ListedProduct) {
+        presenter.didSelectProduct(product)
+    }
+    
     func loadMoreProducts() {
         presenter?.loadMoreProducts()
     }
 }
-
-
+//MARK: - SponsoredProductsTableViewSectionCellDelegate
+extension ProductListViewController: SponsoredProductsTableViewSectionCellDelegate {
+    func didSelect(_ product: any Product) {
+        presenter.didSelectProduct(product)
+    }
+}

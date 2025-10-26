@@ -104,7 +104,7 @@ final class ListingProductCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Configure
     
-    func configure(with product: Product) {
+    func configure(with product: ListedProduct) {
         titleLabel.text = product.title
         discountPriceView.configure(originalPrice: product.price, discountedPrice: product.instantDiscountPrice)
         sellerLabel.text = product.sellerName

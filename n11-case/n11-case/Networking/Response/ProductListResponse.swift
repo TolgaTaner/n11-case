@@ -4,7 +4,7 @@ struct ProductListResponse: Decodable {
     let page, publishedAt: String
     let nextPage: String?
     let sponsoredProducts: [SponsoredProduct]?
-    let products: [Product]
+    let products: [ListedProduct]
 
     enum CodingKeys: String, CodingKey {
         case page, nextPage
@@ -14,22 +14,30 @@ struct ProductListResponse: Decodable {
 }
 
 // MARK: - Sponsored Product
-struct SponsoredProduct: Decodable {
-    let id: Int
-    let title: String
-    let image: String
-    let price: Double
-    let instantDiscountPrice: Double?
-    let rate: Double?
+protocol Product {
+    var id: Int { get }
+    var title: String { get }
+    var image: String { get }
+    var price: Double { get }
+    var instantDiscountPrice: Double? { get }
+    var rate: Double? { get }
+}
+struct SponsoredProduct: Decodable, Product {
+    var id: Int
+    var title: String
+    var image: String
+    var price: Double
+    var instantDiscountPrice: Double?
+    var rate: Double?
 }
 
 // MARK: - Product
-struct Product: Decodable {
-    let id: Int
-    let title: String
-    let image: String
-    let price: Double
-    let instantDiscountPrice: Double?
-    let rate: Double?
+struct ListedProduct: Decodable, Product {
+    var id: Int
+    var title: String
+    var image: String
+    var price: Double
+    var instantDiscountPrice: Double?
+    var rate: Double?
     let sellerName: String?
 }

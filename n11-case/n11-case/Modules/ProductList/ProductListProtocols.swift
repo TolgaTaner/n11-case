@@ -16,14 +16,17 @@ protocol ProductListViewToPresenterProtocol: AnyObject {
     var interactor: ProductListPresenterToInteractorProtocol? { get set }
     var router: ProductListPresenterToRouterProtocol? { get set }
     var sponsoredProductList: [SponsoredProduct] { get set }
-    var productList: [Product] { get set }
+    var productList: [ListedProduct] { get set }
     var currentProductPage: Int { get set }
     var nextProductPage: Int? { get set }
+    var navigationControllerDelegate: CustomNavigationControllerDelegate { get }
     var sectionList: [ProductListSection] { get set }
+    
     func getProductList()
     func viewDidLoad()
     func viewWillAppear()
     func loadMoreProducts()
+    func didSelectProduct(_ product: Product)
     
 }
 
@@ -39,6 +42,8 @@ protocol ProductListPresenterToViewProtocol: AnyObject {
 protocol ProductListPresenterToRouterProtocol: AnyObject {
     var viewController: ProductListViewController? { get set }
     static func createModule() -> UINavigationController?
+    
+    func routeProductDetail(_ product: Product)
 }
 
 //MARK: - ProductListPresenterToInteractorProtocol
@@ -51,6 +56,6 @@ protocol ProductListPresenterToInteractorProtocol: AnyObject {
 
 //MARK: - ProductListInteractorToPresenterProtocol
 protocol ProductListInteractorToPresenterProtocol: AnyObject {
-    func productDidFetchedSuccessfully(_ sponsoredProductList: [SponsoredProduct]?, _ productList: [Product], _ currentPage: String, _ nextPage: String?)
+    func productDidFetchedSuccessfully(_ sponsoredProductList: [SponsoredProduct]?, _ productList: [ListedProduct], _ currentPage: String, _ nextPage: String?)
     func productDidFetchedWithFail(_ error: APIError)
 }

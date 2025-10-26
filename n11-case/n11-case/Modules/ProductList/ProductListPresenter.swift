@@ -14,10 +14,11 @@ final class ProductListPresenter {
     var interactor: ProductListPresenterToInteractorProtocol?
     var router: ProductListPresenterToRouterProtocol?
     var sponsoredProductList: [SponsoredProduct]
-    var productList: [Product]
+    var productList: [ListedProduct]
     var currentProductPage: Int
     var nextProductPage: Int?
     var sectionList: [ProductListSection]
+    var navigationControllerDelegate: CustomNavigationControllerDelegate
     
     init(view: ProductListPresenterToViewProtocol,
          interactor: ProductListPresenterToInteractorProtocol,
@@ -30,13 +31,14 @@ final class ProductListPresenter {
         currentProductPage = 1
         nextProductPage = currentProductPage
         sectionList = [.sponsored, .listing]
+        navigationControllerDelegate = CustomNavigationControllerDelegate()
     }
 }
 
 
 //MARK: - ProductListInteractorToPresenterProtocol
 extension ProductListPresenter: ProductListInteractorToPresenterProtocol {
-    func productDidFetchedSuccessfully(_ sponsoredProductList: [SponsoredProduct]?, _ productList: [Product], _ currentPage: String, _ nextPage: String?) {
+    func productDidFetchedSuccessfully(_ sponsoredProductList: [SponsoredProduct]?, _ productList: [ListedProduct], _ currentPage: String, _ nextPage: String?) {
         if let currentPageInt = Int(currentPage) {
             currentProductPage = currentPageInt
         }
@@ -65,6 +67,9 @@ extension ProductListPresenter: ProductListInteractorToPresenterProtocol {
 
 //MARK: - ProductListViewToPresenterProtocol
 extension ProductListPresenter: ProductListViewToPresenterProtocol {
+    func didSelectProduct(_ product: any Product) {
+        router?.routeProductDetail(product)
+    }
     
     func loadMoreProducts() {
         guard (nextProductPage != nil) else { return }

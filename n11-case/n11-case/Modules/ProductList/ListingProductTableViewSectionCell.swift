@@ -8,6 +8,7 @@
 import UIKit
 protocol ListingProductTableViewSectionCellDelegate: AnyObject {
     func loadMoreProducts()
+    func didSelect(_ product: ListedProduct)
 }
 
 final class ListingProductTableViewSectionCell: UITableViewCell {
@@ -30,7 +31,7 @@ final class ListingProductTableViewSectionCell: UITableViewCell {
     
     private var collectionViewHeightConstraint: NSLayoutConstraint?
     
-    var products: [Product] = []
+    var products: [ListedProduct] = []
     weak var delegate: ListingProductTableViewSectionCellDelegate?
     
     // MARK: - Init
@@ -71,7 +72,7 @@ final class ListingProductTableViewSectionCell: UITableViewCell {
         collectionViewHeightConstraint?.constant = height
     }
     
-    func configure(with products: [Product], delegate: ListingProductTableViewSectionCellDelegate) {
+    func configure(with products: [ListedProduct], delegate: ListingProductTableViewSectionCellDelegate) {
         self.products = products
         self.delegate = delegate
         collectionView.layoutIfNeeded()
@@ -114,5 +115,9 @@ extension ListingProductTableViewSectionCell: UICollectionViewDataSource, UIColl
              delegate?.loadMoreProducts()
          }
      }
-   
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let product = products[indexPath.row]
+        delegate?.didSelect(product)
+    }
 }
