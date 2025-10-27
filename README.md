@@ -47,8 +47,6 @@ This project is built **entirely programmatically** (no Storyboards or XIBs).
 The project includes both **unit** and **UI test** suites.
 
 - The `ProductListPage` class validates the existence of key UI components.  
-- Navigation to the product detail screen is also tested through UI automation.
-
 ---
 
 ## Installation
