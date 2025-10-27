@@ -22,12 +22,15 @@ final class PriceCalculator {
     
     func calculateDiscountPercentage(originalPrice: Double, discountedPrice: Double) -> String? {
         guard originalPrice > 0 else { return nil }
+        
         let discount = (originalPrice - discountedPrice) / originalPrice * 100
-        if Int(round(discount)) == 0 {
-            return nil
-        }
-        return "%\(Int(round(discount)))"
+        let roundedDiscount = round(discount) 
+        
+        guard roundedDiscount > 0 else { return nil }
+        
+        return "%\(Int(roundedDiscount))"
     }
+
     
     func getPrice(from price: Double) -> String {
            formatter.string(from: NSNumber(value: price)) ?? "\(price) TL"
